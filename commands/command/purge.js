@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 
 module.exports = {
     commands: 'purge',
-    description: 'purge',
+    description: 'purge <number>',
     callback: async (message, args) => {
         const amount = parseInt(args[0]) + 1;
 

@@ -1,27 +1,36 @@
+const Discord = require('discord.js')
+const r = "RANDOM";
+
 module.exports = {
     commands: ['kick'],
     permissionError: 'You must be an admin to use this command.',
     permissions: 'ADMINISTRATOR',
     expectedArgs: "<Target user's @>",
     description: 'kick a person.',
-    callback: async (message) => {
-        const {
-            member,
-            mentions
-        } = message
-
-        const tag = `<@${member.id}>`
-
-
-        const target = mentions.users.first()
-        if (target) {
-            const targetMember = message.guild.members.cache.get(target.id)
-            targetMember.kick()
-            message.channel.send(`${tag} That user has been kicked`)
-        } else {
-            message.channel.send(`${tag} Please specify someone to kick.`)
+    callback: async (message, args) => {
+        if(!message.member.hasPermission('KICK_MEMBERS')) return message.channel.send(`You don't have permission to kick members.`);
+        let toKick = message.mentions.members.first();
+        let reason = args.slice(1).join(" ");
+        if(!args[0]) return message.channel.send(` Please specify someone to ban.`);
+        if(!toKick) return message.channel.send(`${args[0]} is not a member.`);
+        if(!reason) return message.channel.send(` Specify a reason.`);
+ 
+        if(!toKick.kickable){
+            return message.channel.send(':x: I cannot kick someone that is mod/admin. :x:');
         }
-
+ 
+        if(toKick.kickable){
+            let x = new Discord.MessageEmbed()
+            .setTitle('Kick')
+            .addField('Member Kicked', toKick)
+            .addField('Kicked by', message.author)
+            .addField('Reason', reason)
+            .addField('Date', message.createdAt)
+            .setColor(r);
+ 
+            message.channel.send(x);
+            toKick.kick();
+        }
 
     },
 }
