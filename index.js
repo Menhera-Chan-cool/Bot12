@@ -2,6 +2,7 @@ require('module-alias/register')
 
 const Discord = require('discord.js')
 const client = new Discord.Client()
+
 const poll = require('@features/poll')
 const memberCount = require('@features/member-count')
 const welcome = require('@features/welcome')
@@ -35,4 +36,9 @@ client.on('ready', async () => {
 
 })
 
-client.login(process.env.TOKEN)
+
+if (process.env.TOKEN !== null) {
+  client.login(process.env.TOKEN)
+} else {
+  console.error('Bot token is empty!')
+}
