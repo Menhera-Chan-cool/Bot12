@@ -1,6 +1,5 @@
 {
-    "prefix": "~",
-    "mongoPath": "mongodb://localhost:27017/discordbotv12",
-    "redisPath": "//redis-19365.c99.us-east-1-4.ec2.cloud.redislabs.com:19365?password=0jGz9MnJM9RnEqMV6q5DB3XFNh9qEjiR"
-
+    "token": "TOKEN",
+    "default_prefix": "-",
+    "owner_id": "447667617155514380"
 }
